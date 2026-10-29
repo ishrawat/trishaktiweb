@@ -307,6 +307,21 @@
     background-color: #0A192F; /* Solid background for the back */
     border: 1px solid rgba(245, 158, 11, 0.4); /* Gold border */
   }
+  /* Subtle Tiranga Accents */
+  .site-header::after {
+    content: "";
+    position: absolute;
+    bottom: -1px; 
+    left: 0; 
+    width: 100%; 
+    height: 3px;
+    background: linear-gradient(90deg, #FF9933 0%, #FF9933 33.33%, #FFFFFF 33.33%, #FFFFFF 66.66%, #138808 66.66%, #138808 100%);
+    z-index: 50;
+  }
+  footer {
+    border-top: 3px solid transparent;
+    border-image: linear-gradient(90deg, #FF9933 0%, #FF9933 33.33%, #FFFFFF 33.33%, #FFFFFF 66.66%, #138808 66.66%, #138808 100%) 1;
+  }
 </style>
 </head>
 
@@ -342,7 +357,13 @@
           Apply Now
         </a>
 
-        <button id="themeToggle" type="button" aria-label="Toggle dark mode"
+                <a href="https://www.google.com/maps/dir/?api=1&destination=25.732861,74.091278" target="_blank" rel="noopener" aria-label="Take me to Campus" title="Take me to Campus" class="group relative flex h-9 w-9 items-center justify-center rounded-lg border border-line text-ink transition hover:border-gold hover:text-gold">
+          <svg class="h-[18px] w-[18px] transition-transform duration-200 group-hover:scale-110 group-hover:-translate-y-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0Z"/>
+            <circle cx="12" cy="10" r="3"/>
+          </svg>
+        </a>
+<button id="themeToggle" type="button" aria-label="Toggle dark mode"
                 class="relative flex h-9 w-9 items-center justify-center rounded-lg border border-line text-ink transition hover:border-gold hover:text-gold">
           <svg id="iconSun" class="h-[18px] w-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>
@@ -430,8 +451,7 @@
         </h1>
 
         <p class="mt-6 max-w-xl text-[1rem] leading-relaxed text-muted sm:text-lg">
-          Specialized Written Examination Training at <strong class="font-600 text-ink">Bhim, Rajsamand</strong>
-          (Near Stadium). Classroom coaching, physical ground guidance and app-based mock tests — all under one roof.
+          Specialized Written Examination Training at <a href="#contact" class="font-600 text-ink hover:text-gold transition-colors underline decoration-gold/30 hover:decoration-gold underline-offset-4">Bhim, Rajsamand (Near Stadium)</a>. Classroom coaching, physical ground guidance and app-based mock tests — all under one roof.
         </p>
 
         <div class="mt-8 flex flex-wrap items-center gap-3">
@@ -442,6 +462,10 @@
           <a href="#app-portal" class="btn btn-outline">
             <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
             Download Official App
+          </a>
+          <a href="https://www.google.com/maps/dir/?api=1&destination=25.732861,74.091278" target="_blank" rel="noopener" class="btn btn-outline">
+            <svg class="h-4 w-4 text-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+            Locate Us
           </a>
         </div>
 
@@ -526,6 +550,7 @@
             <p class="text-[.65rem] font-700 uppercase tracking-widest text-gold">Instructor</p>
           </div>
           <h3 class="font-oswald text-2xl sm:text-3xl font-700 uppercase tracking-wide text-white">Ishwar Singh Chauhan</h3>
+          <div class="h-[3px] w-16 bg-gradient-to-r from-[#FF9933] via-white to-[#138808] my-2.5 mx-auto md:mx-0 rounded-full opacity-80"></div>
                     <p class="text-[#94A3B8] text-xs font-600 tracking-widest uppercase mt-1 mb-3">Ravali</p>
           
           <!-- Academic Credentials -->
@@ -565,7 +590,7 @@
               </div>
               <!-- Back (Hovered) -->
               <div class="flip-card-back">
-                <p class="text-[.6rem] font-700 text-gold uppercase mb-1 tracking-widest"> Record</p>
+                <p class="text-[.6rem] font-700 text-gold uppercase mb-1 tracking-widest">Service Record</p>
                 <div class="text-[.6rem] sm:text-[.65rem] text-white/90 grid grid-cols-2 gap-x-2 gap-y-1 w-full text-left pl-2">
                   <span>01/22 ✓</span> <span>02/22 ✓</span>
                   <span>01/23 ✓</span> <span>02/23 ✓</span>
@@ -588,7 +613,7 @@
                 </div>
               </div>
               <div class="flip-card-back">
-                <p class="text-[.6rem] font-700 text-army uppercase mb-1 tracking-widest"> Record</p>
+                <p class="text-[.6rem] font-700 text-army uppercase mb-1 tracking-widest">Service Record</p>
                 <div class="text-[.65rem] text-white/90 grid grid-cols-2 gap-x-2 gap-y-2 w-full text-left pl-4">
                   <span>02/23 ✓</span>
                   <span>01/24 ✓</span>
@@ -610,7 +635,7 @@
                 </div>
               </div>
               <div class="flip-card-back">
-                <p class="text-[.6rem] font-700 text-navy uppercase mb-1 tracking-widest"> Record</p>
+                <p class="text-[.6rem] font-700 text-navy uppercase mb-1 tracking-widest">Service Record</p>
                 <div class="text-[.65rem] text-white/90 flex flex-col gap-1 w-full items-center">
                   <span>Attempt 01 ✓</span>
                   <span>Attempt 02 ✓</span>
@@ -896,9 +921,9 @@
         </span>
         <div>
           <p class="text-[.66rem] font-700 uppercase tracking-[.16em] text-muted">Academy Address</p>
-          <p class="mt-1 font-oswald text-lg font-600 uppercase leading-snug tracking-wide text-ink">
+          <a href="https://www.google.com/maps/search/?api=1&query=25.732861,74.091278" target="_blank" rel="noopener" class="mt-1 font-oswald text-lg font-600 uppercase leading-snug tracking-wide text-ink hover:text-gold transition-colors block">
             Near Stadium, Bhim,<br />District Rajsamand, Rajasthan
-          </p>
+          </a>
         </div>
       </div>
 
@@ -917,6 +942,16 @@
           <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.5 15.2L2 22l4.9-1.4A10 10 0 1 0 12 2Zm5.5 12.4c-.3-.2-1.7-.9-2-1-.3-.1-.5-.2-.7.1-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.2.3-.4.5-.6.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.2-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1.1 1-1.1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3Z"/></svg>
           Chat on WhatsApp
         </a>
+      </div>
+
+      <!-- Take me to Campus Button -->
+      <div class="mt-5">
+        
+      </div>
+
+      <!-- Take me to Campus Button -->
+      <div class="mt-5">
+        
       </div>
 
       <div class="mt-6 border-t border-line pt-5">
@@ -992,7 +1027,7 @@
       <div>
         <p class="mb-3 text-[.66rem] font-700 uppercase tracking-[.16em] text-gold">Reach Us</p>
         <ul class="space-y-2 text-[.8rem] text-[#CBD5E1]">
-          <li>Near Stadium, Bhim, Rajsamand, Rajasthan</li>
+          <li><a href="#contact" class="hover:text-gold transition-colors">Near Stadium, Bhim, Rajsamand, Rajasthan</a></li>
           <li><a href="tel:+917339762820" class="transition hover:text-gold">+91 7339762820</a></li>
           <li><a href="mailto:trishaktidefese@gmail.com" class="break-all transition hover:text-gold">trishaktidefese@gmail.com</a></li>
           <li><a href="https://github.com/ishrawat/trishakti-defence/releases/download/v1.0.0/trishakti.apk" target="_blank" rel="noopener" class="transition hover:text-gold">Download Android App</a></li>
@@ -1274,6 +1309,19 @@
 
 </body>
 </html>
+
+
+
+
+
+
+     
+
+
+
+
+
+
 
 
 
