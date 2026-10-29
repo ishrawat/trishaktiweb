@@ -501,27 +501,17 @@
       <div class="shrink-0 flex flex-col items-center">
         <div class="relative group">
           <!-- Added ID to the image for the toggle script -->
-          <img id="mentorImage" src="instructor.png" alt="Ishwar Singh Chauhan" class="w-36 h-36 md:w-56 md:h-56 object-cover object-top rounded-2xl border-2 border-gold shadow-xl bg-[#112240] transition-all duration-300">
+          <img src="instructor.png" alt="Ishwar Singh Chauhan" class="w-36 h-36 md:w-56 md:h-56 object-cover object-top rounded-2xl border-2 border-gold shadow-xl bg-[#112240] transition-all duration-300">
           
           <div class="absolute -bottom-3 -right-3 bg-gold text-[#0A192F] p-2 rounded-lg shadow-lg z-10">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
           </div>
         </div>
         
-        <!-- Interactive Disclaimer Button (Bulletproof Inline JS) -->
-        <button onclick="
-          var img = document.getElementById('mentorImage');
-          var txt = document.getElementById('mentorImageText');
-          if (img.getAttribute('src') === 'instructor.png') {
-            img.setAttribute('src', 'instructor2.jpg');
-            txt.innerHTML = 'Original Image. Tap to view AI-enhanced version.';
-          } else {
-            img.setAttribute('src', 'instructor.png');
-            txt.innerHTML = 'Image edited using AI. Tap for original.';
-          }
-        " class="text-[8px] text-[#94A3B8] mt-4 text-center max-w-[200px] leading-tight opacity-70 hover:opacity-100 hover:text-gold transition-all duration-200 underline decoration-white/20 hover:decoration-gold underline-offset-4 cursor-pointer">
-          <span id="mentorImageText">Image edited using AI. Tap for original.</span>
-        </button>
+                <!-- Simple AI Disclaimer Label -->
+        <p class="text-[8px] text-[#94A3B8] mt-4 text-center max-w-[200px] leading-tight opacity-60">
+          Image edited using AI to enhance quality.
+        </p>
       </div>
 
       <!-- Right Side: The Message & Stats -->
@@ -1282,6 +1272,7 @@
 
 </body>
 </html>
+
 
 
 
