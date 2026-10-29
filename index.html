@@ -4,10 +4,10 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Trishakti Defence Academy | Agniveer Army, Navy &amp; IAF Written Exam Coaching — Bhim, Rajsamand</title>
-  <link rel="icon" type="image/svg+xml" href="logo.svg">
+ <link rel="icon" type="image/svg+xml" href="logo.svg">
 <meta name="description" content="Trishakti Defence Academy, Bhim (Rajsamand) — specialised written examination coaching for Army, Navy & IAF Agniveer. Daily classroom coaching, physical ground guidance, app-based mock tests, PYQ PDFs. Admissions open." />
 <meta name="theme-color" content="#0A192F" />
-  
+
 <script>
   (function () {
     try {
@@ -239,6 +239,74 @@
   .animate-marquee:hover {
     animation-play-state: paused;
   }
+    /* 3D Flip Card Magic */
+  .flip-card {
+    background-color: transparent;
+    perspective: 1000px; /* Gives the 3D depth */
+  }
+  .flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+    transform-style: preserve-3d;
+  }
+  .flip-card:hover .flip-card-inner,
+  .flip-card:focus-within .flip-card-inner {
+    transform: rotateY(180deg);
+  }
+  .flip-card-front, .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden; /* Safari */
+    backface-visibility: hidden;
+    border-radius: 0.75rem; /* Tailwind rounded-xl */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .flip-card-front {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .flip-card-back {
+    background-color: #112240; /* Slightly lighter dark blue */
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    transform: rotateY(180deg);
+    padding: 0.5rem;
+  }
+  .flip-card-front { background-color: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); }
+  .flip-card-back { background-color: #112240; border: 1px solid rgba(255, 255, 255, 0.15); transform: rotateY(180deg); padding: 0.5rem; }
+  /* Hero Mini Flip Card - Fixed 3D Glitch */
+  .hero-flip-card { perspective: 1000px; z-index: 10; }
+  .hero-flip-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1); transform-style: preserve-3d; }
+  .hero-flip-card:hover .hero-flip-inner, .hero-flip-card:focus-within .hero-flip-inner { transform: rotateY(180deg); }
+  
+  .hero-flip-front, .hero-flip-back { 
+    position: absolute; 
+    inset: 0; /* Forces it to fill the box perfectly */
+    -webkit-backface-visibility: hidden; 
+    backface-visibility: hidden; 
+    border-radius: 1rem; 
+    display: flex; 
+    flex-direction: column; 
+    padding: 1.25rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  }
+  
+  .hero-flip-front { 
+    background-color: rgba(10, 25, 47, 0.95); /* Solid-ish background instead of blur */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .hero-flip-back { 
+    transform: rotateY(180deg); 
+    background-color: #0A192F; /* Solid background for the back */
+    border: 1px solid rgba(245, 158, 11, 0.4); /* Gold border */
+  }
 </style>
 </head>
 
@@ -392,33 +460,187 @@
           </span>
         </div>
       </div>
-    </div>
-  </div>
-</section>
 
-<!-- BATTLE CRY MARQUEE -->
+            </section>`n`n<!-- BATTLE CRY MARQUEE -->
 <div class="w-full border-y border-line bg-[#0A192F] overflow-hidden flex relative py-3">
   <div class="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-[#0A192F] to-transparent z-10 pointer-events-none"></div>
   <div class="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-[#0A192F] to-transparent z-10 pointer-events-none"></div>
   <div class="flex whitespace-nowrap animate-marquee items-center">
-    <div class="flex items-center gap-8 px-4">★ "Mohit nahi, sir... Iftikhar." – Maj Mohit Sharma, AC
-★ "Don't come up, I will handle them." – Maj Sandeep Unnikrishnan, AC
-★ "If you don't trust me, kill me right now." – Maj Mohit Sharma (as Iftikhar)
-★ "No Sir, I will not abandon my tank." – Lt Arun Khetarpal, PVC
-★ "Enemies killed my men, I will not leave them alive." – Maj Saravanan
-★ "I shall not withdraw an inch but will fight to the last man and the last round." – Maj Somnath Sharma, PVC
-★ "I'll either come back after hoisting the Tricolour, or I'll come back wrapped in it." – Capt Vikram Batra, PVC
-★ "Not a single man will turn back! Dead or alive, we have to meet in Dograi!" – Brig Desmond Hayde, MVC</div>
-    <div class="flex items-center gap-8 px-4" aria-hidden="true">★ "Mohit nahi, sir... Iftikhar." – Maj Mohit Sharma, AC
-★ "Don't come up, I will handle them." – Maj Sandeep Unnikrishnan, AC
-★ "If you don't trust me, kill me right now." – Maj Mohit Sharma (as Iftikhar)
-★ "No Sir, I will not abandon my tank." – Lt Arun Khetarpal, PVC
-★ "Enemies killed my men, I will not leave them alive." – Maj Saravanan
-★ "I shall not withdraw an inch but will fight to the last man and the last round." – Maj Somnath Sharma, PVC
-★ "I'll either come back after hoisting the Tricolour, or I'll come back wrapped in it." – Capt Vikram Batra, PVC
-★ "Not a single man will turn back! Dead or alive, we have to meet in Dograi!" – Brig Desmond Hayde, MVC</div>
+    <div class="flex items-center gap-8 px-4">
+      <span class="text-gold font-oswald tracking-wider uppercase text-sm sm:text-base">★ "Mohit nahi, sir... Iftikhar." – Maj Mohit Sharma, AC</span>
+      <span class="text-navy font-oswald tracking-wider uppercase text-sm sm:text-base">★ "Don't come up, I will handle them." – Maj Sandeep Unnikrishnan, AC</span>
+      <span class="text-white font-oswald tracking-wider uppercase text-sm sm:text-base">★ "If you don't trust me, kill me right now." – Maj Mohit Sharma</span>
+      <span class="text-gold font-oswald tracking-wider uppercase text-sm sm:text-base">★ "No Sir, I will not abandon my tank." – Lt Arun Khetarpal, PVC</span>
+      <span class="text-army font-oswald tracking-wider uppercase text-sm sm:text-base">★ "Enemies killed my men, I will not leave them alive." – Maj Saravanan</span>
+      <span class="text-navy font-oswald tracking-wider uppercase text-sm sm:text-base">★ "I shall not withdraw an inch but will fight to the last man and the last round." – Maj Somnath Sharma, PVC</span>
+      <span class="text-white font-oswald tracking-wider uppercase text-sm sm:text-base">★ "I'll either come back after hoisting the Tricolour, or I'll come back wrapped in it." – Capt Vikram Batra, PVC</span>
+      <span class="text-gold font-oswald tracking-wider uppercase text-sm sm:text-base">★ "Not a single man will turn back! Dead or alive, we have to meet in Dograi!" – Brig Desmond Hayde, MVC</span>
+    </div>
+    <div class="flex items-center gap-8 px-4" aria-hidden="true">
+      <span class="text-gold font-oswald tracking-wider uppercase text-sm sm:text-base">★ "Mohit nahi, sir... Iftikhar." – Maj Mohit Sharma, AC</span>
+      <span class="text-navy font-oswald tracking-wider uppercase text-sm sm:text-base">★ "Don't come up, I will handle them." – Maj Sandeep Unnikrishnan, AC</span>
+      <span class="text-white font-oswald tracking-wider uppercase text-sm sm:text-base">★ "If you don't trust me, kill me right now." – Maj Mohit Sharma</span>
+      <span class="text-gold font-oswald tracking-wider uppercase text-sm sm:text-base">★ "No Sir, I will not abandon my tank." – Lt Arun Khetarpal, PVC</span>
+      <span class="text-army font-oswald tracking-wider uppercase text-sm sm:text-base">★ "Enemies killed my men, I will not leave them alive." – Maj Saravanan</span>
+      <span class="text-navy font-oswald tracking-wider uppercase text-sm sm:text-base">★ "I shall not withdraw an inch but will fight to the last man and the last round." – Maj Somnath Sharma, PVC</span>
+      <span class="text-white font-oswald tracking-wider uppercase text-sm sm:text-base">★ "I'll either come back after hoisting the Tricolour, or I'll come back wrapped in it." – Capt Vikram Batra, PVC</span>
+      <span class="text-gold font-oswald tracking-wider uppercase text-sm sm:text-base">★ "Not a single man will turn back! Dead or alive, we have to meet in Dograi!" – Brig Desmond Hayde, MVC</span>
+    </div>
   </div>
 </div>
+<!-- MENTOR PROFILE SECTION -->
+<section class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+  <div class="bg-[#0A192F] rounded-2xl shadow-2xl border border-[#1E293B] p-6 sm:p-10 relative overflow-hidden">
+    
+    <!-- Subtle background accent -->
+    <div class="absolute top-0 right-0 w-64 h-64 bg-gold/5 rounded-full blur-3xl -mr-20 -mt-20 pointer-events-none"></div>
+
+    <div class="flex flex-col md:flex-row items-center md:items-start gap-8 relative z-10">
+      
+      <!-- Left Side: The Compact Photo -->
+      <div class="shrink-0 flex flex-col items-center">
+        <div class="relative group">
+          <!-- Added ID to the image for the toggle script -->
+          <img id="mentorImage" src="instructor.png" alt="Ishwar Singh Chauhan" class="w-36 h-36 md:w-56 md:h-56 object-cover object-top rounded-2xl border-2 border-gold shadow-xl bg-[#112240] transition-all duration-300">
+          
+          <div class="absolute -bottom-3 -right-3 bg-gold text-[#0A192F] p-2 rounded-lg shadow-lg z-10">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          </div>
+        </div>
+        
+        <!-- Interactive Disclaimer Button (Bulletproof Inline JS) -->
+        <button onclick="
+          var img = document.getElementById('mentorImage');
+          var txt = document.getElementById('mentorImageText');
+          if (img.getAttribute('src') === 'instructor.png') {
+            img.setAttribute('src', 'instructor2.jpg');
+            txt.innerHTML = 'Original Image. Tap to view AI-enhanced version.';
+          } else {
+            img.setAttribute('src', 'instructor.png');
+            txt.innerHTML = 'Image edited using AI. Tap for original.';
+          }
+        " class="text-[8px] text-[#94A3B8] mt-4 text-center max-w-[200px] leading-tight opacity-70 hover:opacity-100 hover:text-gold transition-all duration-200 underline decoration-white/20 hover:decoration-gold underline-offset-4 cursor-pointer">
+          <span id="mentorImageText">Image edited using AI. Tap for original.</span>
+        </button>
+      </div>
+
+      <!-- Right Side: The Message & Stats -->
+      <div class="flex-1 text-center md:text-left">
+        
+        <!-- Mentor Name & Location -->
+        <div class="mb-5">
+          <div class="flex items-center justify-center md:justify-start gap-2 mb-1">
+            <svg class="w-4 h-4 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            <p class="text-[.65rem] font-700 uppercase tracking-widest text-gold">Instructor</p>
+          </div>
+          <h3 class="font-oswald text-2xl sm:text-3xl font-700 uppercase tracking-wide text-white">Ishwar Singh Chauhan</h3>
+                    <p class="text-[#94A3B8] text-xs font-600 tracking-widest uppercase mt-1 mb-3">Ravali</p>
+          
+          <!-- Academic Credentials -->
+          <div class="flex flex-wrap justify-center md:justify-start gap-2 mb-5">
+            <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-white/5 border border-white/10 text-[.6rem] font-600 text-[#CBD5E1] uppercase tracking-wider">
+              <svg class="w-3 h-3 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+              B.Tech Electrical
+            </span>
+            <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-white/5 border border-white/10 text-[.6rem] font-600 text-[#CBD5E1] uppercase tracking-wider">
+              <svg class="w-3 h-3 text-army" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+              BA History, English & Pol Sci
+            </span>
+          </div>
+        </div>
+
+        <h2 class="font-oswald text-xl sm:text-2xl font-700 uppercase tracking-tight text-white leading-tight">
+          A track record built over years, <span class="text-gold">not a lucky break.</span>
+        </h2>
+        
+        <p class="mt-3 text-[#94A3B8] text-sm leading-relaxed max-w-xl mx-auto md:mx-0">
+          You don't need theoretical knowledge. You need the pattern. Hover over the records below to see the exact timeline of selections. 
+        </p>
+
+        <!-- The 3D Stats Grid -->
+        <div class="mt-6 grid grid-cols-3 gap-3 sm:gap-4 h-[140px]">
+          
+          <!-- AFCAT FLIP CARD -->
+          <div class="flip-card cursor-pointer" tabindex="0">
+            <div class="flip-card-inner">
+              <!-- Front -->
+              <div class="flip-card-front p-2">
+                <p class="text-[.65rem] font-700 uppercase tracking-widest text-gold mb-1">AFCAT</p>
+                <p class="font-oswald text-4xl font-700 text-white leading-none">9<span class="text-base text-gold ml-1">x</span></p>
+                <div class="mt-2 pt-2 border-t border-white/10 w-full">
+                  <p class="text-[.55rem] font-600 uppercase tracking-wider text-[#94A3B8]">2022 - 2026</p>
+                </div>
+              </div>
+              <!-- Back (Hovered) -->
+              <div class="flip-card-back">
+                <p class="text-[.6rem] font-700 text-gold uppercase mb-1 tracking-widest">Service Record</p>
+                <div class="text-[.6rem] sm:text-[.65rem] text-white/90 grid grid-cols-2 gap-x-2 gap-y-1 w-full text-left pl-2">
+                  <span>01/22 ✓</span> <span>02/22 ✓</span>
+                  <span>01/23 ✓</span> <span>02/23 ✓</span>
+                  <span>01/24 ✓</span> <span>02/24 ✓</span>
+                  <span>01/25 ✓</span> <span>02/25 ✓</span>
+                  <span>01/26 ✓</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CDS FLIP CARD -->
+          <div class="flip-card cursor-pointer" tabindex="0">
+            <div class="flip-card-inner">
+              <div class="flip-card-front p-2">
+                <p class="text-[.65rem] font-700 uppercase tracking-widest text-army mb-1">CDS</p>
+                <p class="font-oswald text-4xl font-700 text-white leading-none">4<span class="text-base text-army ml-1">x</span></p>
+                <div class="mt-2 pt-2 border-t border-white/10 w-full">
+                  <p class="text-[.55rem] font-600 uppercase tracking-wider text-[#94A3B8]">2023 - 2025</p>
+                </div>
+              </div>
+              <div class="flip-card-back">
+                <p class="text-[.6rem] font-700 text-army uppercase mb-1 tracking-widest">Service Record</p>
+                <div class="text-[.65rem] text-white/90 grid grid-cols-2 gap-x-2 gap-y-2 w-full text-left pl-4">
+                  <span>02/23 ✓</span>
+                  <span>01/24 ✓</span>
+                  <span>02/24 ✓</span>
+                  <span>01/25 ✓</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CGCAT FLIP CARD -->
+          <div class="flip-card cursor-pointer" tabindex="0">
+            <div class="flip-card-inner">
+              <div class="flip-card-front p-2">
+                <p class="text-[.65rem] font-700 uppercase tracking-widest text-navy mb-1">CGCAT</p>
+                <p class="font-oswald text-4xl font-700 text-white leading-none">2<span class="text-base text-navy ml-1">x</span></p>
+                <div class="mt-2 pt-2 border-t border-white/10 w-full">
+                  <p class="text-[.55rem] font-600 uppercase tracking-wider text-[#94A3B8]">Consistent</p>
+                </div>
+              </div>
+              <div class="flip-card-back">
+                <p class="text-[.6rem] font-700 text-navy uppercase mb-1 tracking-widest">Service Record</p>
+                <div class="text-[.65rem] text-white/90 flex flex-col gap-1 w-full items-center">
+                  <span>Attempt 01 ✓</span>
+                  <span>Attempt 02 ✓</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="mt-6 border-t border-white/10 pt-4">
+           <p class="text-xs text-[#94A3B8] italic text-center md:text-left">
+             "I have stayed in the arena from 2022 to 2026. I know exactly how the exam pattern evolves, and I'll show you exactly How to smash it."
+           </p>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <!-- APP PORTAL -->
 <section id="app-portal" class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
   <div class="reveal mx-auto max-w-2xl text-center">
@@ -604,6 +826,8 @@
     </div>
   </div>
 </section>
+
+
 
 <!-- ADMISSION — SIMPLE ENQUIRY FORM -->
 <section id="admission" class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
@@ -1058,6 +1282,21 @@
 
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
