@@ -12,8 +12,8 @@
   (function () {
     try {
       var stored = localStorage.getItem('tsda-theme');
-      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      if (stored === 'dark' || (!stored && prefersDark)) {
+      // Force dark mode by default if no preference has been saved by the user
+      if (stored === 'dark' || !stored) {
         document.documentElement.classList.add('dark');
       }
     } catch (e) {}
@@ -1315,17 +1315,31 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
      
-
-
-
-
-
-
-
-
-
-
-
-
-
