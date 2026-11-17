@@ -48,13 +48,11 @@
     }
     h1, h2, h3, .font-oswald { font-family: 'Oswald', sans-serif; letter-spacing: .03em; }
 
-    /* Tiranga top border */
     .tiranga-bar {
       height: 3px;
       background: linear-gradient(90deg, #FF9933 0%, #FF9933 33.33%, #FFFFFF 33.33%, #FFFFFF 66.66%, #138808 66.66%, #138808 100%);
     }
 
-    /* Tactical inputs */
     .field {
       width: 100%;
       border-radius: .75rem;
@@ -94,7 +92,6 @@
       box-shadow: 0 0 8px #F59E0B;
     }
 
-    /* Radio & Checkbox tactical pills */
     .pill-input { display: none; }
     .pill-card {
       border: 1px solid #26334D;
@@ -112,12 +109,10 @@
       box-shadow: 0 8px 20px -8px rgba(245, 158, 11, 0.45);
     }
 
-    /* Wing specific active glows */
     .wing-army:checked + .pill-card { border-color: #10B981; background: linear-gradient(135deg, rgba(16,185,129,.2), rgba(16,185,129,.04)); box-shadow: 0 8px 22px -8px rgba(16,185,129,.5); }
     .wing-navy:checked + .pill-card { border-color: #06B6D4; background: linear-gradient(135deg, rgba(6,182,212,.2), rgba(6,182,212,.04)); box-shadow: 0 8px 22px -8px rgba(6,182,212,.5); }
     .wing-iaf:checked  + .pill-card { border-color: #3B82F6; background: linear-gradient(135deg, rgba(59,130,246,.2), rgba(59,130,246,.04)); box-shadow: 0 8px 22px -8px rgba(59,130,246,.5); }
 
-    /* Step animations */
     .step-pane { display: none; animation: fadeSlide .32s cubic-bezier(0.22, 1, 0.36, 1); }
     .step-pane.active { display: block; }
     @keyframes fadeSlide {
@@ -125,18 +120,19 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* Toast */
     #toast {
       position: fixed; bottom: 1.25rem; right: 1.25rem; z-index: 60;
       transform: translateY(120%); opacity: 0;
       transition: all .3s cubic-bezier(0.22, 1, 0.36, 1);
     }
     #toast.show { transform: translateY(0); opacity: 1; }
+
+    details > summary { cursor: pointer; list-style: none; }
+    details > summary::-webkit-details-marker { display: none; }
   </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between antialiased">
 
-  <!-- Sticky Tactical Header -->
   <header class="sticky top-0 z-40 bg-[#080E1A]/90 backdrop-blur-md border-b border-line">
     <div class="tiranga-bar"></div>
     <div class="mx-auto max-w-4xl px-4 py-3.5 flex items-center justify-between">
@@ -156,7 +152,6 @@
 
   <main class="mx-auto w-full max-w-4xl px-4 py-8 sm:py-10 flex-1">
 
-    <!-- Top Mission Banner -->
     <div class="mb-6 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
       <div>
         <div class="inline-flex items-center gap-2 rounded-full border border-gold/30 bg-gold/10 px-3 py-1 text-[.68rem] font-bold uppercase tracking-widest text-gold mb-2">
@@ -173,7 +168,6 @@
       </div>
     </div>
 
-    <!-- Interactive Step Progress Bar -->
     <div id="stepperWrapper" class="mb-6 rounded-2xl border border-line bg-surface/80 p-4 backdrop-blur-sm">
       <div class="flex items-center justify-between text-[.68rem] font-bold uppercase tracking-wider mb-2.5">
         <span id="stepTitleDisplay" class="text-gold">Phase 01 · Identity &amp; Comms</span>
@@ -191,13 +185,10 @@
       </div>
     </div>
 
-    <!-- Main Form Card -->
     <div id="formCard" class="rounded-2xl border border-line bg-surface p-5 sm:p-8 shadow-2xl relative overflow-hidden">
       <form id="cadetForm" novalidate>
 
-        <!-- ════════════════════════════════════════════════════════════════
-             PHASE 1: CADET IDENTITY & CONTACT (THE 3 MANDATORY FIELDS HERE)
-             ════════════════════════════════════════════════════════════════ -->
+        <!-- PHASE 1 -->
         <div class="step-pane active" data-step="0" data-title="Phase 01 · Cadet Identity &amp; Comms">
           <div class="mb-6">
             <h2 class="text-xl font-bold uppercase text-white">Cadet Identity &amp; Primary Contact</h2>
@@ -246,23 +237,13 @@
             </div>
           </div>
 
-          <!-- Gender & Category Tactical Pills -->
           <div class="mt-5 grid gap-5 sm:grid-cols-2">
             <div>
               <label class="label">Gender</label>
               <div class="grid grid-cols-3 gap-2">
-                <label>
-                  <input type="radio" name="gender" value="Male" class="pill-input" checked />
-                  <div class="pill-card text-center text-xs font-bold uppercase">Male</div>
-                </label>
-                <label>
-                  <input type="radio" name="gender" value="Female" class="pill-input" />
-                  <div class="pill-card text-center text-xs font-bold uppercase">Female</div>
-                </label>
-                <label>
-                  <input type="radio" name="gender" value="Other" class="pill-input" />
-                  <div class="pill-card text-center text-xs font-bold uppercase">Other</div>
-                </label>
+                <label><input type="radio" name="gender" value="Male" class="pill-input" checked /><div class="pill-card text-center text-xs font-bold uppercase">Male</div></label>
+                <label><input type="radio" name="gender" value="Female" class="pill-input" /><div class="pill-card text-center text-xs font-bold uppercase">Female</div></label>
+                <label><input type="radio" name="gender" value="Other" class="pill-input" /><div class="pill-card text-center text-xs font-bold uppercase">Other</div></label>
               </div>
             </div>
 
@@ -279,16 +260,13 @@
           </div>
         </div>
 
-        <!-- ════════════════════════════════════════════════════════════════
-             PHASE 2: DEFENCE WING & TARGET TRADE
-             ════════════════════════════════════════════════════════════════ -->
+        <!-- PHASE 2 -->
         <div class="step-pane" data-step="1" data-title="Phase 02 · Select Force &amp; Entry">
           <div class="mb-6">
             <h2 class="text-xl font-bold uppercase text-white">Choose Your Wing &amp; Target Trade</h2>
             <p class="text-xs text-muted mt-0.5">Select the service branch you are preparing for.</p>
           </div>
 
-          <!-- Big Wing Cards -->
           <div class="grid grid-cols-3 gap-3 mb-6">
             <label>
               <input type="radio" name="wing" value="Army" class="pill-input wing-army" checked />
@@ -298,7 +276,6 @@
                 <p class="text-[.65rem] text-muted mt-0.5">GD · Tech · SKT · NA</p>
               </div>
             </label>
-
             <label>
               <input type="radio" name="wing" value="Navy" class="pill-input wing-navy" />
               <div class="pill-card text-center py-4">
@@ -307,7 +284,6 @@
                 <p class="text-[.65rem] text-muted mt-0.5">SSR · MR</p>
               </div>
             </label>
-
             <label>
               <input type="radio" name="wing" value="Air Force" class="pill-input wing-iaf" />
               <div class="pill-card text-center py-4">
@@ -318,7 +294,6 @@
             </label>
           </div>
 
-          <!-- Dynamic Trade Pills based on Wing -->
           <div class="mb-6">
             <label class="label">Select Trade / Entry Group</label>
             <div id="tradeContainer" class="grid grid-cols-2 sm:grid-cols-3 gap-2.5"></div>
@@ -344,9 +319,7 @@
           </div>
         </div>
 
-        <!-- ════════════════════════════════════════════════════════════════
-             PHASE 3: ADDRESS & EMAIL
-             ════════════════════════════════════════════════════════════════ -->
+        <!-- PHASE 3 -->
         <div class="step-pane" data-step="2" data-title="Phase 03 · Residential Coordinates">
           <div class="mb-6">
             <h2 class="text-xl font-bold uppercase text-white">Address &amp; Email</h2>
@@ -381,9 +354,7 @@
           </div>
         </div>
 
-        <!-- ════════════════════════════════════════════════════════════════
-             PHASE 4: EDUCATIONAL RECORD
-             ════════════════════════════════════════════════════════════════ -->
+        <!-- PHASE 4 -->
         <div class="step-pane" data-step="3" data-title="Phase 04 · Academic Record">
           <div class="mb-6">
             <h2 class="text-xl font-bold uppercase text-white">Educational Qualification</h2>
@@ -421,9 +392,7 @@
           </div>
         </div>
 
-        <!-- ════════════════════════════════════════════════════════════════
-             PHASE 5: ID, DOCUMENTS, PHYSICAL & SUBMIT
-             ════════════════════════════════════════════════════════════════ -->
+        <!-- PHASE 5 -->
         <div class="step-pane" data-step="4" data-title="Phase 05 · ID, Physical &amp; Final Dispatch">
           <div class="mb-6">
             <h2 class="text-xl font-bold uppercase text-white">ID, Physical Metrics &amp; Documents</h2>
@@ -460,7 +429,6 @@
             </div>
           </div>
 
-          <!-- Clickable Document Chips -->
           <div class="mb-6">
             <label class="label">Documents Ready to Submit</label>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
@@ -475,7 +443,6 @@
             </div>
           </div>
 
-          <!-- Declaration -->
           <div class="rounded-xl border border-line bg-canvas/80 p-4 text-xs text-muted leading-relaxed">
             <label class="flex items-start gap-3 cursor-pointer">
               <input type="checkbox" id="declaration" checked class="mt-0.5 h-4 w-4 accent-amber-500 rounded" />
@@ -486,14 +453,12 @@
           </div>
         </div>
 
-        <!-- Navigation Footer Buttons -->
         <div class="mt-8 pt-5 border-t border-line flex items-center justify-between gap-3">
           <button type="button" id="prevBtn" class="hidden rounded-xl border border-line bg-canvas/60 px-5 py-3 text-xs font-bold uppercase tracking-wider text-muted hover:border-gold hover:text-gold transition">
             ← Previous
           </button>
 
           <div class="ml-auto flex items-center gap-3">
-            <!-- Quick Submit shortcut once Step 1 mandatory fields are filled -->
             <button type="submit" id="quickSubmitBtn" class="hidden rounded-xl border border-army/40 bg-army/15 px-4 py-3 text-xs font-bold uppercase tracking-wider text-army hover:bg-army hover:text-[#080E1A] transition">
               Fast Submit Now
             </button>
@@ -509,16 +474,43 @@
         </div>
       </form>
 
-      <!-- Success Dossier Screen -->
+      <!-- Success Screen -->
       <div id="successScreen" class="hidden py-10 text-center">
-        <div class="mx-auto mb-5 flex h-20 w-20 items-center justify-center rounded-2xl bg-army/15 border border-army/40 text-army shadow-lg shadow-army/20">
+        <div id="successIcon" class="mx-auto mb-5 flex h-20 w-20 items-center justify-center rounded-2xl bg-army/15 border border-army/40 text-army shadow-lg shadow-army/20">
           <svg class="h-10 w-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
         </div>
-        <span class="inline-block rounded-full bg-army/15 px-3 py-1 text-[.68rem] font-bold uppercase tracking-widest text-army mb-2">Transmitted Successfully</span>
+        <span id="successBadge" class="inline-block rounded-full bg-army/15 px-3 py-1 text-[.68rem] font-bold uppercase tracking-widest text-army mb-2">Transmitted Successfully</span>
         <h2 class="text-3xl font-bold uppercase text-white">Welcome to Trishakti, <span id="doneName" class="text-gold">Cadet</span>!</h2>
-        <p class="mt-3 text-sm text-muted max-w-md mx-auto leading-relaxed">
-          Your admission dossier has been delivered directly to our command desk at <strong class="text-white">Bhim, Rajsamand</strong>. We will contact you shortly to confirm your batch slot.
-        </p>
+
+        <!-- Status details -->
+        <div id="statusBox" class="mt-4 mx-auto max-w-lg text-xs text-muted leading-relaxed bg-canvas/60 border border-line rounded-xl p-4 text-left"></div>
+
+        <!-- Retry (hidden unless error) -->
+        <button id="retryBtn" type="button" class="hidden mt-4 rounded-xl border border-red-500/40 bg-red-500/10 px-5 py-3 text-xs font-bold uppercase tracking-wider text-red-300 hover:bg-red-500/20 transition">
+          ⟳ Retry Sending
+        </button>
+
+        <!-- Debug: show what was sent -->
+        <details class="mt-6 mx-auto max-w-lg text-left">
+          <summary class="text-[.7rem] text-muted uppercase tracking-wider font-bold hover:text-gold transition select-none">
+            ▸ Show request / response details (for debugging)
+          </summary>
+          <div class="mt-3 space-y-3">
+            <div>
+              <p class="text-[.65rem] text-muted uppercase tracking-wider font-bold mb-1">Script URL</p>
+              <code id="dbgUrl" class="block text-[.7rem] bg-canvas border border-line rounded-lg p-2 break-all text-gold"></code>
+            </div>
+            <div>
+              <p class="text-[.65rem] text-muted uppercase tracking-wider font-bold mb-1">Response from server</p>
+              <pre id="dbgResponse" class="block text-[.7rem] bg-canvas border border-line rounded-lg p-2 overflow-x-auto text-army whitespace-pre-wrap break-all"></pre>
+            </div>
+            <div>
+              <p class="text-[.65rem] text-muted uppercase tracking-wider font-bold mb-1">Payload sent</p>
+              <pre id="dbgPayload" class="block text-[.7rem] bg-canvas border border-line rounded-lg p-2 overflow-x-auto text-muted whitespace-pre-wrap break-all"></pre>
+            </div>
+          </div>
+        </details>
+
         <div class="mt-7 flex flex-wrap justify-center gap-3">
           <a href="index.html" class="rounded-xl border border-line bg-canvas px-5 py-3 text-xs font-bold uppercase tracking-wider text-white hover:border-gold transition">Back to Academy Home</a>
           <a href="https://wa.me/917339762820" target="_blank" rel="noopener" class="rounded-xl bg-[#25D366] px-5 py-3 text-xs font-bold uppercase tracking-wider text-[#06301A] hover:brightness-110 transition">Connect on WhatsApp</a>
@@ -531,7 +523,6 @@
     Trishakti Defence Academy · Behind PRSC Stadium, Bhim, Rajsamand (Rajasthan)
   </footer>
 
-  <!-- Notification Toast -->
   <div id="toast" class="rounded-xl border border-red-500/40 bg-surface px-4 py-3 text-xs font-semibold text-white shadow-2xl flex items-center gap-2.5">
     <span class="h-2.5 w-2.5 rounded-full bg-red-500"></span>
     <span id="toastMsg">Please check required fields.</span>
@@ -539,6 +530,11 @@
 
   <script>
     (function () {
+      // ═══════════════════════════════════════════════════════════════════════
+      // ⚠️ IMPORTANT: Replace this with the Web App URL from your latest
+      //    "Deploy → Manage deployments → New version" deployment.
+      //    It MUST be the SAME URL as the one in index.html.
+      // ═══════════════════════════════════════════════════════════════════════
       const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzjpOBDA_MSks6DsLTtiCe_t_jVxZSiGQIWWTzOivmfrKChXEqpZL2l-dZQK2H-zMN9KQ/exec';
 
       const TRADES = {
@@ -556,30 +552,37 @@
       const nextBtn = document.getElementById('nextBtn');
       const quickSubmitBtn = document.getElementById('quickSubmitBtn');
       const finalSubmitBtn = document.getElementById('finalSubmitBtn');
+      const retryBtn = document.getElementById('retryBtn');
 
       let currentStep = 0;
+      let lastPayload = null;
 
-      function showToast(msg) {
+      function showToast(msg, color) {
         const t = document.getElementById('toast');
+        const dot = t.querySelector('span');
         document.getElementById('toastMsg').textContent = msg;
+        if (color === 'ok') {
+          dot.className = 'h-2.5 w-2.5 rounded-full bg-army';
+          t.className = 'rounded-xl border border-army/40 bg-surface px-4 py-3 text-xs font-semibold text-white shadow-2xl flex items-center gap-2.5';
+        } else {
+          dot.className = 'h-2.5 w-2.5 rounded-full bg-red-500';
+          t.className = 'rounded-xl border border-red-500/40 bg-surface px-4 py-3 text-xs font-semibold text-white shadow-2xl flex items-center gap-2.5';
+        }
         t.classList.add('show');
-        setTimeout(() => t.classList.remove('show'), 3500);
+        setTimeout(() => t.classList.remove('show'), 4000);
       }
 
-      // Digits-only cleaner for phones, PIN, Aadhaar, year
       ['studentContact', 'guardianContact', 'whatsappNo', 'pinCode', 'aadhaar', 'passingYear'].forEach(id => {
         const el = document.getElementById(id);
         if (el) el.addEventListener('input', () => { el.value = el.value.replace(/\D/g, ''); });
       });
 
-      // Copy student mobile to WhatsApp
       document.getElementById('copyPhoneBtn').addEventListener('click', () => {
         const own = document.getElementById('studentContact').value.trim();
         if (!own) { showToast('Enter Student Mobile Number first.'); return; }
         document.getElementById('whatsappNo').value = own;
       });
 
-      // Render Trade pills whenever Wing changes
       function renderTrades(wing) {
         const container = document.getElementById('tradeContainer');
         const list = TRADES[wing] || TRADES['Army'];
@@ -595,7 +598,6 @@
         radio.addEventListener('change', (e) => renderTrades(e.target.value));
       });
 
-      // Validate the 3 mandatory fields
       function validateMandatory() {
         const name = document.getElementById('fullName').value.trim();
         const own = document.getElementById('studentContact').value.trim();
@@ -651,25 +653,46 @@
       prevBtn.addEventListener('click', () => goToStep(currentStep - 1));
       tabs.forEach(tab => tab.addEventListener('click', () => goToStep(Number(tab.dataset.goto))));
 
-      // Submit handler
-      document.getElementById('cadetForm').addEventListener('submit', async function (e) {
-        e.preventDefault();
-        if (!validateMandatory()) return;
-
-        if (!document.getElementById('declaration').checked) {
-          showToast('Please tick the declaration box before submitting.');
-          return;
+      // ═══════════════════════════════════════════════════════════════════════
+      // SENDING LOGIC
+      // ═══════════════════════════════════════════════════════════════════════
+      async function sendToServer(payload) {
+        // 1) Try a readable fetch (works if Apps Script sends CORS headers)
+        try {
+          const res = await fetch(SCRIPT_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: JSON.stringify(payload),
+            redirect: 'follow'
+          });
+          if (res.ok) {
+            const text = await res.text();
+            let data;
+            try { data = JSON.parse(text); } catch { data = { raw: text }; }
+            return { ok: true, readable: true, data };
+          }
+          return { ok: false, readable: true, error: 'HTTP ' + res.status };
+        } catch (e) {
+          // 2) CORS or network block — fall back to no-cors (fire and forget)
+          console.warn('Readable fetch failed, falling back to no-cors:', e);
+          try {
+            await fetch(SCRIPT_URL, {
+              method: 'POST',
+              mode: 'no-cors',
+              body: JSON.stringify(payload)
+            });
+            return { ok: true, readable: false };
+          } catch (e2) {
+            return { ok: false, readable: false, error: e2.message };
+          }
         }
+      }
 
-        finalSubmitBtn.disabled = true;
-        quickSubmitBtn.disabled = true;
-        finalSubmitBtn.textContent = 'Transmitting...';
-        quickSubmitBtn.textContent = 'Sending...';
-
+      function buildPayload() {
         const checkedDocs = Array.from(document.querySelectorAll('input[name="docs"]:checked')).map(cb => cb.value).join(', ');
         const todayStr = new Date().toISOString().split('T')[0];
 
-        const payload = {
+        return {
           form_type: 'admission',
           session: document.getElementById('session').value.trim() || '2026–27',
           admission_date: todayStr,
@@ -707,26 +730,149 @@
           medical_fitness: document.getElementById('medicalFitness').value.trim(),
           remarks: document.getElementById('remarks').value.trim()
         };
+      }
 
-        try {
-          await fetch(SCRIPT_URL, {
-            method: 'POST',
-            mode: 'no-cors',
-            body: JSON.stringify(payload)
-          });
-          document.getElementById('cadetForm').classList.add('hidden');
-          document.getElementById('stepperWrapper').classList.add('hidden');
-          document.getElementById('doneName').textContent = payload.full_name.split(' ')[0];
-          document.getElementById('successScreen').classList.remove('hidden');
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        } catch (err) {
-          showToast('Network error. Please try again.');
-          finalSubmitBtn.disabled = false;
-          quickSubmitBtn.disabled = false;
-          finalSubmitBtn.textContent = 'Transmit Admission Dossier ✓';
-          quickSubmitBtn.textContent = 'Fast Submit Now';
+      function renderResult(result, payload) {
+        // Always log for debugging
+        console.log('[Trishakti] Submission payload:', payload);
+        console.log('[Trishakti] Server result:', result);
+
+        // Show debug panel content
+        document.getElementById('dbgUrl').textContent = SCRIPT_URL;
+        document.getElementById('dbgPayload').textContent = JSON.stringify(payload, null, 2);
+        document.getElementById('dbgResponse').textContent = JSON.stringify(result, null, 2);
+
+        // Reveal success screen
+        document.getElementById('cadetForm').classList.add('hidden');
+        document.getElementById('stepperWrapper').classList.add('hidden');
+        document.getElementById('doneName').textContent = (payload.full_name || 'Cadet').split(' ')[0];
+        document.getElementById('successScreen').classList.remove('hidden');
+
+        const statusBox = document.getElementById('statusBox');
+        const badge = document.getElementById('successBadge');
+        const icon = document.getElementById('successIcon');
+        const retry = document.getElementById('retryBtn');
+
+        retry.classList.add('hidden');
+        statusBox.innerHTML = '';
+
+        // ── Case A: Server returned a definitive, readable response ────────
+        if (result.readable && result.data) {
+          const data = result.data;
+
+          if (data.error) {
+            badge.textContent = 'Submission Rejected';
+            badge.className = 'inline-block rounded-full bg-red-500/15 px-3 py-1 text-[.68rem] font-bold uppercase tracking-widest text-red-300 mb-2';
+            icon.className = 'mx-auto mb-5 flex h-20 w-20 items-center justify-center rounded-2xl bg-red-500/15 border border-red-500/40 text-red-300 shadow-lg shadow-red-500/20';
+            statusBox.innerHTML = `<p class="text-red-300"><strong>Error:</strong> ${data.error}</p>
+              <p class="mt-2">Please correct the details and try again.</p>`;
+            retry.classList.remove('hidden');
+            return;
+          }
+
+          // Build per-channel status list
+          const rows = [];
+          if (data.telegram === 'sent') rows.push(['Telegram', 'OK', 'ok']);
+          else if (data.telegram) rows.push(['Telegram', data.telegram, 'bad']);
+          if (data.email === 'sent') rows.push(['Email', 'OK', 'ok']);
+          else if (data.email) rows.push(['Email', data.email, 'bad']);
+          if (data.supabase) rows.push(['Supabase', data.supabase, String(data.supabase).includes('20') ? 'ok' : 'bad']);
+
+          statusBox.innerHTML = rows.map(([k, v, s]) => `
+            <div class="flex justify-between gap-3 py-1">
+              <span class="font-semibold text-white">${k}</span>
+              <span class="${s === 'ok' ? 'text-army' : 'text-red-300'} text-right break-all">${v}</span>
+            </div>
+          `).join('');
+
+          const tgOk = data.telegram === 'sent';
+          if (tgOk) {
+            badge.textContent = 'Transmitted Successfully';
+            badge.className = 'inline-block rounded-full bg-army/15 px-3 py-1 text-[.68rem] font-bold uppercase tracking-widest text-army mb-2';
+            icon.className = 'mx-auto mb-5 flex h-20 w-20 items-center justify-center rounded-2xl bg-army/15 border border-army/40 text-army shadow-lg shadow-army/20';
+            statusBox.insertAdjacentHTML('beforeend', '<p class="mt-2 text-army">✅ Confirmed delivery on Telegram.</p>');
+          } else {
+            badge.textContent = 'Delivery Unconfirmed';
+            badge.className = 'inline-block rounded-full bg-amber-500/15 px-3 py-1 text-[.68rem] font-bold uppercase tracking-widest text-amber-300 mb-2';
+            statusBox.insertAdjacentHTML('beforeend', '<p class="mt-2 text-amber-300">⚠️ Telegram did not confirm. Check the log above and tap Retry.</p>');
+            retry.classList.remove('hidden');
+          }
+          return;
         }
+
+        // ── Case B: no-cors fallback succeeded (can't read response) ───────
+        if (result.ok && !result.readable) {
+          badge.textContent = 'Sent — Please Verify';
+          badge.className = 'inline-block rounded-full bg-amber-500/15 px-3 py-1 text-[.68rem] font-bold uppercase tracking-widest text-amber-300 mb-2';
+          statusBox.innerHTML = `
+            <p>The request was sent, but your browser could not read the server's response due to CORS restrictions.</p>
+            <p class="mt-2"><strong class="text-white">Please verify:</strong></p>
+            <ul class="mt-1 space-y-1 pl-4 list-disc">
+              <li>Check <strong class="text-white">Telegram</strong> — did the dossier arrive?</li>
+              <li>Check <strong class="text-white">email</strong> at rawatishwarrajput@gmail.com</li>
+            </ul>
+            <p class="mt-2">If neither arrived, tap Retry.</p>`;
+          retry.classList.remove('hidden');
+          return;
+        }
+
+        // ── Case C: hard failure ────────────────────────────────────────────
+        badge.textContent = 'Send Failed';
+        badge.className = 'inline-block rounded-full bg-red-500/15 px-3 py-1 text-[.68rem] font-bold uppercase tracking-widest text-red-300 mb-2';
+        icon.className = 'mx-auto mb-5 flex h-20 w-20 items-center justify-center rounded-2xl bg-red-500/15 border border-red-500/40 text-red-300 shadow-lg shadow-red-500/20';
+        statusBox.innerHTML = `<p class="text-red-300"><strong>Error:</strong> ${result.error || 'Unknown network error'}</p>
+          <p class="mt-2">Check your internet and try again, or contact the academy directly on WhatsApp.</p>`;
+        retry.classList.remove('hidden');
+      }
+
+      async function submitAdmission() {
+        const payload = buildPayload();
+        lastPayload = payload;
+
+        finalSubmitBtn.disabled = true;
+        quickSubmitBtn.disabled = true;
+        const origFinal = finalSubmitBtn.textContent;
+        const origQuick = quickSubmitBtn.textContent;
+        finalSubmitBtn.textContent = 'Transmitting...';
+        quickSubmitBtn.textContent = 'Sending...';
+
+        const result = await sendToServer(payload);
+
+        finalSubmitBtn.disabled = false;
+        quickSubmitBtn.disabled = false;
+        finalSubmitBtn.textContent = origFinal;
+        quickSubmitBtn.textContent = origQuick;
+
+        renderResult(result, payload);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      document.getElementById('cadetForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (!validateMandatory()) return;
+        if (!document.getElementById('declaration').checked) {
+          showToast('Please tick the declaration box before submitting.');
+          return;
+        }
+        submitAdmission();
       });
+
+      // Retry button
+      retryBtn.addEventListener('click', async () => {
+        if (!lastPayload) return;
+        retryBtn.disabled = true;
+        retryBtn.textContent = 'Retrying...';
+        const result = await sendToServer(lastPayload);
+        retryBtn.disabled = false;
+        retryBtn.textContent = '⟳ Retry Sending';
+        renderResult(result, lastPayload);
+      });
+
+      // Warn if SCRIPT_URL looks stale
+      if (!SCRIPT_URL.includes('/exec')) {
+        console.error('[Trishakti] SCRIPT_URL is invalid — must end in /exec');
+        showToast('Configuration warning: check SCRIPT_URL in application.html');
+      }
     })();
   </script>
 </body>
