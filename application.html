@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cadet Enlistment Portal | Trishakti Defence Academy, Bhim</title>
+  <link rel="icon" type="image/svg+xml" href="logo.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            canvas: '#080E1A',
+            surface: '#11192C',
+            surface2: '#17223B',
+            ink: '#F8FAFC',
+            muted: '#94A3B8',
+            line: '#26334D',
+            gold: '#F59E0B',
+            army: '#10B981',
+            navy: '#06B6D4',
+            iaf: '#3B82F6'
+          },
+          fontFamily: {
+            oswald: ['Oswald', 'sans-serif'],
+            inter: ['Inter', 'sans-serif']
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    body {
+      background-color: #080E1A;
+      color: #F8FAFC;
+      font-family: 'Inter', sans-serif;
+      background-image:
+        radial-gradient(circle at 12% 15%, rgba(245, 158, 11, 0.12), transparent 38%),
+        radial-gradient(circle at 88% 82%, rgba(16, 185, 129, 0.10), transparent 40%),
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 44px 44px, 44px 44px;
+    }
+    h1, h2, h3, .font-oswald { font-family: 'Oswald', sans-serif; letter-spacing: .03em; }
+
+    /* Tiranga top border */
+    .tiranga-bar {
+      height: 3px;
+      background: linear-gradient(90deg, #FF9933 0%, #FF9933 33.33%, #FFFFFF 33.33%, #FFFFFF 66.66%, #138808 66.66%, #138808 100%);
+    }
+
+    /* Tactical inputs */
+    .field {
+      width: 100%;
+      border-radius: .75rem;
+      border: 1px solid #26334D;
+      background: rgba(8, 14, 26, 0.75);
+      color: #F8FAFC;
+      padding: .75rem .95rem;
+      font-size: .9rem;
+      outline: none;
+      transition: all .2s ease;
+    }
+    .field:focus {
+      border-color: #F59E0B;
+      background: #080E1A;
+      box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.18);
+    }
+    .field::placeholder { color: #64748B; }
+    input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(0.8); cursor: pointer; }
+
+    .label {
+      display: flex;
+      align-items: center;
+      gap: .35rem;
+      font-size: .68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: #94A3B8;
+      margin-bottom: .4rem;
+    }
+    .req-dot {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #F59E0B;
+      box-shadow: 0 0 8px #F59E0B;
+    }
+
+    /* Radio & Checkbox tactical pills */
+    .pill-input { display: none; }
+    .pill-card {
+      border: 1px solid #26334D;
+      background: rgba(8, 14, 26, 0.65);
+      border-radius: .85rem;
+      padding: .75rem 1rem;
+      cursor: pointer;
+      transition: all .2s ease;
+      user-select: none;
+    }
+    .pill-card:hover { border-color: rgba(245, 158, 11, 0.5); transform: translateY(-1px); }
+    .pill-input:checked + .pill-card {
+      border-color: #F59E0B;
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.16), rgba(245, 158, 11, 0.04));
+      box-shadow: 0 8px 20px -8px rgba(245, 158, 11, 0.45);
+    }
+
+    /* Wing specific active glows */
+    .wing-army:checked + .pill-card { border-color: #10B981; background: linear-gradient(135deg, rgba(16,185,129,.2), rgba(16,185,129,.04)); box-shadow: 0 8px 22px -8px rgba(16,185,129,.5); }
+    .wing-navy:checked + .pill-card { border-color: #06B6D4; background: linear-gradient(135deg, rgba(6,182,212,.2), rgba(6,182,212,.04)); box-shadow: 0 8px 22px -8px rgba(6,182,212,.5); }
+    .wing-iaf:checked  + .pill-card { border-color: #3B82F6; background: linear-gradient(135deg, rgba(59,130,246,.2), rgba(59,130,246,.04)); box-shadow: 0 8px 22px -8px rgba(59,130,246,.5); }
+
+    /* Step animations */
+    .step-pane { display: none; animation: fadeSlide .32s cubic-bezier(0.22, 1, 0.36, 1); }
+    .step-pane.active { display: block; }
+    @keyframes fadeSlide {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Toast */
+    #toast {
+      position: fixed; bottom: 1.25rem; right: 1.25rem; z-index: 60;
+      transform: translateY(120%); opacity: 0;
+      transition: all .3s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    #toast.show { transform: translateY(0); opacity: 1; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between antialiased">
+
+  <!-- Sticky Tactical Header -->
+  <header class="sticky top-0 z-40 bg-[#080E1A]/90 backdrop-blur-md border-b border-line">
+    <div class="tiranga-bar"></div>
+    <div class="mx-auto max-w-4xl px-4 py-3.5 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-3 group">
+        <img src="logo.svg" alt="Trishakti Defence Academy" class="h-10 w-10 object-contain transition-transform group-hover:scale-105" />
+        <div>
+          <span class="block font-oswald text-lg font-bold uppercase leading-none text-white tracking-wider">Trishakti Defence</span>
+          <span class="block text-[.62rem] font-semibold uppercase tracking-[.22em] text-gold mt-0.5">Behind PRSC Stadium, Bhim</span>
+        </div>
+      </a>
+      <a href="index.html" class="inline-flex items-center gap-1.5 rounded-xl border border-line bg-surface/70 px-3.5 py-2 text-xs font-semibold text-muted transition hover:border-gold hover:text-gold">
+        <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Home
+      </a>
+    </div>
+  </header>
+
+  <main class="mx-auto w-full max-w-4xl px-4 py-8 sm:py-10 flex-1">
+
+    <!-- Top Mission Banner -->
+    <div class="mb-6 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+      <div>
+        <div class="inline-flex items-center gap-2 rounded-full border border-gold/30 bg-gold/10 px-3 py-1 text-[.68rem] font-bold uppercase tracking-widest text-gold mb-2">
+          <span class="h-2 w-2 rounded-full bg-gold animate-ping"></span>
+          Agniveer Enlistment · 2026–27
+        </div>
+        <h1 class="text-3xl sm:text-4xl font-bold uppercase text-white leading-none">
+          Cadet Admission <span class="text-gold">Dossier</span>
+        </h1>
+      </div>
+      <div class="flex items-center gap-2 text-xs text-muted bg-surface/80 border border-line px-3.5 py-2 rounded-xl">
+        <span class="req-dot"></span>
+        <span>Only <strong class="text-white">3 fields</strong> mandatory to register</span>
+      </div>
+    </div>
+
+    <!-- Interactive Step Progress Bar -->
+    <div id="stepperWrapper" class="mb-6 rounded-2xl border border-line bg-surface/80 p-4 backdrop-blur-sm">
+      <div class="flex items-center justify-between text-[.68rem] font-bold uppercase tracking-wider mb-2.5">
+        <span id="stepTitleDisplay" class="text-gold">Phase 01 · Identity &amp; Comms</span>
+        <span id="stepCountDisplay" class="text-muted">Step 1 of 5</span>
+      </div>
+      <div class="h-2 w-full rounded-full bg-canvas overflow-hidden">
+        <div id="progressBar" class="h-full w-1/5 rounded-full bg-gradient-to-r from-gold via-amber-400 to-army transition-all duration-300"></div>
+      </div>
+      <div class="mt-3 grid grid-cols-5 gap-1.5">
+        <button type="button" data-goto="0" class="step-tab text-left rounded-lg px-2 py-1 text-[.65rem] font-bold uppercase tracking-wider bg-gold/15 text-gold border border-gold/40 truncate">1. Cadet</button>
+        <button type="button" data-goto="1" class="step-tab text-left rounded-lg px-2 py-1 text-[.65rem] font-semibold uppercase tracking-wider bg-canvas/50 text-muted border border-transparent truncate">2. Wing</button>
+        <button type="button" data-goto="2" class="step-tab text-left rounded-lg px-2 py-1 text-[.65rem] font-semibold uppercase tracking-wider bg-canvas/50 text-muted border border-transparent truncate">3. Address</button>
+        <button type="button" data-goto="3" class="step-tab text-left rounded-lg px-2 py-1 text-[.65rem] font-semibold uppercase tracking-wider bg-canvas/50 text-muted border border-transparent truncate">4. Academics</button>
+        <button type="button" data-goto="4" class="step-tab text-left rounded-lg px-2 py-1 text-[.65rem] font-semibold uppercase tracking-wider bg-canvas/50 text-muted border border-transparent truncate">5. Docs &amp; Fit</button>
+      </div>
+    </div>
+
+    <!-- Main Form Card -->
+    <div id="formCard" class="rounded-2xl border border-line bg-surface p-5 sm:p-8 shadow-2xl relative overflow-hidden">
+      <form id="cadetForm" novalidate>
+
+        <!-- ════════════════════════════════════════════════════════════════
+             PHASE 1: CADET IDENTITY & CONTACT (THE 3 MANDATORY FIELDS HERE)
+             ════════════════════════════════════════════════════════════════ -->
+        <div class="step-pane active" data-step="0" data-title="Phase 01 · Cadet Identity &amp; Comms">
+          <div class="mb-6">
+            <h2 class="text-xl font-bold uppercase text-white">Cadet Identity &amp; Primary Contact</h2>
+            <p class="text-xs text-muted mt-0.5">Enter your name and contact numbers so our team can confirm your seat.</p>
+          </div>
+
+          <div class="grid gap-5 sm:grid-cols-2">
+            <div class="sm:col-span-2">
+              <label class="label" for="fullName"><span class="req-dot"></span> Full Name of Student</label>
+              <input id="fullName" type="text" class="field uppercase font-semibold tracking-wide" placeholder="e.g. ARJUN SINGH RATHORE" required />
+            </div>
+
+            <div>
+              <label class="label" for="studentContact"><span class="req-dot"></span> Student Mobile Number</label>
+              <input id="studentContact" type="tel" inputmode="numeric" maxlength="10" class="field font-semibold" placeholder="10-digit mobile number" required />
+            </div>
+
+            <div>
+              <label class="label" for="guardianContact"><span class="req-dot"></span> Guardian / Parent Contact</label>
+              <input id="guardianContact" type="tel" inputmode="numeric" maxlength="10" class="field font-semibold" placeholder="10-digit guardian number" required />
+            </div>
+
+            <div>
+              <label class="label" for="whatsappNo">WhatsApp Number</label>
+              <div class="relative">
+                <input id="whatsappNo" type="tel" inputmode="numeric" maxlength="10" class="field pr-24" placeholder="Same or alternate" />
+                <button type="button" id="copyPhoneBtn" class="absolute right-2 top-1/2 -translate-y-1/2 rounded-md bg-gold/15 border border-gold/30 px-2 py-1 text-[.62rem] font-bold uppercase text-gold hover:bg-gold hover:text-[#080E1A] transition">
+                  Same as Own
+                </button>
+              </div>
+            </div>
+
+            <div>
+              <label class="label" for="dob">Date of Birth</label>
+              <input id="dob" type="date" class="field" />
+            </div>
+
+            <div>
+              <label class="label" for="fatherName">Father's Name</label>
+              <input id="fatherName" type="text" class="field uppercase" placeholder="Father's full name" />
+            </div>
+
+            <div>
+              <label class="label" for="motherName">Mother's Name</label>
+              <input id="motherName" type="text" class="field uppercase" placeholder="Mother's full name" />
+            </div>
+          </div>
+
+          <!-- Gender & Category Tactical Pills -->
+          <div class="mt-5 grid gap-5 sm:grid-cols-2">
+            <div>
+              <label class="label">Gender</label>
+              <div class="grid grid-cols-3 gap-2">
+                <label>
+                  <input type="radio" name="gender" value="Male" class="pill-input" checked />
+                  <div class="pill-card text-center text-xs font-bold uppercase">Male</div>
+                </label>
+                <label>
+                  <input type="radio" name="gender" value="Female" class="pill-input" />
+                  <div class="pill-card text-center text-xs font-bold uppercase">Female</div>
+                </label>
+                <label>
+                  <input type="radio" name="gender" value="Other" class="pill-input" />
+                  <div class="pill-card text-center text-xs font-bold uppercase">Other</div>
+                </label>
+              </div>
+            </div>
+
+            <div>
+              <label class="label">Category</label>
+              <div class="grid grid-cols-5 gap-1.5">
+                <label><input type="radio" name="category" value="General" class="pill-input" checked /><div class="pill-card !px-1 text-center text-[.7rem] font-bold uppercase">GEN</div></label>
+                <label><input type="radio" name="category" value="OBC" class="pill-input" /><div class="pill-card !px-1 text-center text-[.7rem] font-bold uppercase">OBC</div></label>
+                <label><input type="radio" name="category" value="SC" class="pill-input" /><div class="pill-card !px-1 text-center text-[.7rem] font-bold uppercase">SC</div></label>
+                <label><input type="radio" name="category" value="ST" class="pill-input" /><div class="pill-card !px-1 text-center text-[.7rem] font-bold uppercase">ST</div></label>
+                <label><input type="radio" name="category" value="EWS" class="pill-input" /><div class="pill-card !px-1 text-center text-[.7rem] font-bold uppercase">EWS</div></label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ════════════════════════════════════════════════════════════════
+             PHASE 2: DEFENCE WING & TARGET TRADE
+             ════════════════════════════════════════════════════════════════ -->
+        <div class="step-pane" data-step="1" data-title="Phase 02 · Select Force &amp; Entry">
+          <div class="mb-6">
+            <h2 class="text-xl font-bold uppercase text-white">Choose Your Wing &amp; Target Trade</h2>
+            <p class="text-xs text-muted mt-0.5">Select the service branch you are preparing for.</p>
+          </div>
+
+          <!-- Big Wing Cards -->
+          <div class="grid grid-cols-3 gap-3 mb-6">
+            <label>
+              <input type="radio" name="wing" value="Army" class="pill-input wing-army" checked />
+              <div class="pill-card text-center py-4">
+                <div class="mx-auto mb-1.5 flex h-9 w-9 items-center justify-center rounded-lg bg-army/15 text-army font-oswald font-bold text-sm">IA</div>
+                <p class="font-oswald text-base font-bold uppercase text-white">Indian Army</p>
+                <p class="text-[.65rem] text-muted mt-0.5">GD · Tech · SKT · NA</p>
+              </div>
+            </label>
+
+            <label>
+              <input type="radio" name="wing" value="Navy" class="pill-input wing-navy" />
+              <div class="pill-card text-center py-4">
+                <div class="mx-auto mb-1.5 flex h-9 w-9 items-center justify-center rounded-lg bg-navy/15 text-navy font-oswald font-bold text-sm">IN</div>
+                <p class="font-oswald text-base font-bold uppercase text-white">Indian Navy</p>
+                <p class="text-[.65rem] text-muted mt-0.5">SSR · MR</p>
+              </div>
+            </label>
+
+            <label>
+              <input type="radio" name="wing" value="Air Force" class="pill-input wing-iaf" />
+              <div class="pill-card text-center py-4">
+                <div class="mx-auto mb-1.5 flex h-9 w-9 items-center justify-center rounded-lg bg-iaf/15 text-iaf font-oswald font-bold text-sm">IAF</div>
+                <p class="font-oswald text-base font-bold uppercase text-white">Air Force</p>
+                <p class="text-[.65rem] text-muted mt-0.5">X Group · Y Group</p>
+              </div>
+            </label>
+          </div>
+
+          <!-- Dynamic Trade Pills based on Wing -->
+          <div class="mb-6">
+            <label class="label">Select Trade / Entry Group</label>
+            <div id="tradeContainer" class="grid grid-cols-2 sm:grid-cols-3 gap-2.5"></div>
+          </div>
+
+          <div class="grid gap-4 sm:grid-cols-2">
+            <div>
+              <label class="label" for="session">Session</label>
+              <input id="session" type="text" class="field" value="2026–27" />
+            </div>
+            <div>
+              <label class="label" for="batchNo">Preferred Batch / Batch No.</label>
+              <input id="batchNo" type="text" class="field" placeholder="e.g. Morning Batch" />
+            </div>
+            <div>
+              <label class="label" for="prevCoaching">Previous Coaching</label>
+              <input id="prevCoaching" type="text" class="field" placeholder="Academy name or None" />
+            </div>
+            <div>
+              <label class="label" for="prevAttempts">Previous Exam Attempts</label>
+              <input id="prevAttempts" type="text" class="field" placeholder="e.g. First Attempt / 1 CEE" />
+            </div>
+          </div>
+        </div>
+
+        <!-- ════════════════════════════════════════════════════════════════
+             PHASE 3: ADDRESS & EMAIL
+             ════════════════════════════════════════════════════════════════ -->
+        <div class="step-pane" data-step="2" data-title="Phase 03 · Residential Coordinates">
+          <div class="mb-6">
+            <h2 class="text-xl font-bold uppercase text-white">Address &amp; Email</h2>
+            <p class="text-xs text-muted mt-0.5">Your home village/city and district details.</p>
+          </div>
+
+          <div class="grid gap-4 sm:grid-cols-2">
+            <div class="sm:col-span-2">
+              <label class="label" for="address">Complete Residential Address</label>
+              <input id="address" type="text" class="field" placeholder="House / Mohalla, Post Office, Tehsil" />
+            </div>
+            <div>
+              <label class="label" for="villageCity">Village / City</label>
+              <input id="villageCity" type="text" class="field" placeholder="e.g. Bhim" />
+            </div>
+            <div>
+              <label class="label" for="district">District</label>
+              <input id="district" type="text" class="field" placeholder="e.g. Rajsamand" />
+            </div>
+            <div>
+              <label class="label" for="state">State</label>
+              <input id="state" type="text" class="field" value="Rajasthan" />
+            </div>
+            <div>
+              <label class="label" for="pinCode">PIN Code</label>
+              <input id="pinCode" type="text" inputmode="numeric" maxlength="6" class="field" placeholder="e.g. 305921" />
+            </div>
+            <div class="sm:col-span-2">
+              <label class="label" for="email">Email Address</label>
+              <input id="email" type="email" class="field" placeholder="cadet@example.com" />
+            </div>
+          </div>
+        </div>
+
+        <!-- ════════════════════════════════════════════════════════════════
+             PHASE 4: EDUCATIONAL RECORD
+             ════════════════════════════════════════════════════════════════ -->
+        <div class="step-pane" data-step="3" data-title="Phase 04 · Academic Record">
+          <div class="mb-6">
+            <h2 class="text-xl font-bold uppercase text-white">Educational Qualification</h2>
+            <p class="text-xs text-muted mt-0.5">10th and 12th marksheet details.</p>
+          </div>
+
+          <div class="grid gap-4 sm:grid-cols-3">
+            <div>
+              <label class="label" for="qual10th">10th Qualification / %</label>
+              <input id="qual10th" type="text" class="field" placeholder="e.g. 76.4%" />
+            </div>
+            <div>
+              <label class="label" for="qual12th">12th Qualification / %</label>
+              <input id="qual12th" type="text" class="field" placeholder="e.g. 71.0%" />
+            </div>
+            <div>
+              <label class="label" for="passingYear">Passing Year</label>
+              <input id="passingYear" type="text" inputmode="numeric" maxlength="4" class="field" placeholder="e.g. 2025" />
+            </div>
+            <div>
+              <label class="label" for="stream">Stream</label>
+              <input id="stream" type="text" class="field" placeholder="PCM / PCB / Arts / Com." />
+            </div>
+            <div>
+              <label class="label" for="board">Board</label>
+              <input id="board" type="text" class="field" placeholder="RBSE / CBSE" />
+            </div>
+            <div>
+              <label class="label">Status</label>
+              <div class="grid grid-cols-2 gap-2">
+                <label><input type="radio" name="eduStatus" value="Passed" class="pill-input" checked /><div class="pill-card !py-2.5 text-center text-xs font-bold uppercase">Passed</div></label>
+                <label><input type="radio" name="eduStatus" value="Appearing" class="pill-input" /><div class="pill-card !py-2.5 text-center text-xs font-bold uppercase">Appearing</div></label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ════════════════════════════════════════════════════════════════
+             PHASE 5: ID, DOCUMENTS, PHYSICAL & SUBMIT
+             ════════════════════════════════════════════════════════════════ -->
+        <div class="step-pane" data-step="4" data-title="Phase 05 · ID, Physical &amp; Final Dispatch">
+          <div class="mb-6">
+            <h2 class="text-xl font-bold uppercase text-white">ID, Physical Metrics &amp; Documents</h2>
+            <p class="text-xs text-muted mt-0.5">Review and dispatch your admission form directly to the academy.</p>
+          </div>
+
+          <div class="grid gap-4 sm:grid-cols-2 mb-5">
+            <div>
+              <label class="label" for="aadhaar">Aadhaar Number</label>
+              <input id="aadhaar" type="text" inputmode="numeric" maxlength="12" class="field tracking-wider" placeholder="12-digit Aadhaar" />
+            </div>
+            <div>
+              <label class="label" for="otherId">Other ID (PAN / Voter ID / Marksheet No.)</label>
+              <input id="otherId" type="text" class="field" placeholder="ID Number" />
+            </div>
+          </div>
+
+          <div class="grid gap-4 sm:grid-cols-4 mb-5">
+            <div>
+              <label class="label" for="height">Height (cm)</label>
+              <input id="height" type="number" class="field" placeholder="170" />
+            </div>
+            <div>
+              <label class="label" for="weight">Weight (kg)</label>
+              <input id="weight" type="number" class="field" placeholder="58" />
+            </div>
+            <div>
+              <label class="label" for="medicalFitness">Medical Fitness</label>
+              <input id="medicalFitness" type="text" class="field" placeholder="Fit / Any note" />
+            </div>
+            <div>
+              <label class="label" for="remarks">Remarks</label>
+              <input id="remarks" type="text" class="field" placeholder="Notes" />
+            </div>
+          </div>
+
+          <!-- Clickable Document Chips -->
+          <div class="mb-6">
+            <label class="label">Documents Ready to Submit</label>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
+              <label><input type="checkbox" name="docs" value="4 Passport Size Photos" class="pill-input" /><div class="pill-card !p-2.5 text-center font-semibold">4 Passport Photos</div></label>
+              <label><input type="checkbox" name="docs" value="Aadhaar Card Copy" class="pill-input" /><div class="pill-card !p-2.5 text-center font-semibold">Aadhaar Copy</div></label>
+              <label><input type="checkbox" name="docs" value="10th Marksheet & Cert." class="pill-input" /><div class="pill-card !p-2.5 text-center font-semibold">10th Marksheet</div></label>
+              <label><input type="checkbox" name="docs" value="12th Marksheet & Cert." class="pill-input" /><div class="pill-card !p-2.5 text-center font-semibold">12th Marksheet</div></label>
+              <label><input type="checkbox" name="docs" value="Transfer / Migration Cert." class="pill-input" /><div class="pill-card !p-2.5 text-center font-semibold">TC / Migration</div></label>
+              <label><input type="checkbox" name="docs" value="Caste / Category Cert." class="pill-input" /><div class="pill-card !p-2.5 text-center font-semibold">Caste Certificate</div></label>
+              <label><input type="checkbox" name="docs" value="Medical Fitness Cert." class="pill-input" /><div class="pill-card !p-2.5 text-center font-semibold">Medical Cert.</div></label>
+              <label><input type="checkbox" name="docs" value="Prev. Coaching Cert." class="pill-input" /><div class="pill-card !p-2.5 text-center font-semibold">Prev. Coaching</div></label>
+            </div>
+          </div>
+
+          <!-- Declaration -->
+          <div class="rounded-xl border border-line bg-canvas/80 p-4 text-xs text-muted leading-relaxed">
+            <label class="flex items-start gap-3 cursor-pointer">
+              <input type="checkbox" id="declaration" checked class="mt-0.5 h-4 w-4 accent-amber-500 rounded" />
+              <span>
+                <strong class="text-white">DECLARATION:</strong> I hereby declare that the information furnished above is true and correct to the best of my knowledge and belief. I understand that in the event of any information being found false or incorrect, my admission is liable to be cancelled.
+              </span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Navigation Footer Buttons -->
+        <div class="mt-8 pt-5 border-t border-line flex items-center justify-between gap-3">
+          <button type="button" id="prevBtn" class="hidden rounded-xl border border-line bg-canvas/60 px-5 py-3 text-xs font-bold uppercase tracking-wider text-muted hover:border-gold hover:text-gold transition">
+            ← Previous
+          </button>
+
+          <div class="ml-auto flex items-center gap-3">
+            <!-- Quick Submit shortcut once Step 1 mandatory fields are filled -->
+            <button type="submit" id="quickSubmitBtn" class="hidden rounded-xl border border-army/40 bg-army/15 px-4 py-3 text-xs font-bold uppercase tracking-wider text-army hover:bg-army hover:text-[#080E1A] transition">
+              Fast Submit Now
+            </button>
+
+            <button type="button" id="nextBtn" class="rounded-xl bg-gold px-6 py-3 font-oswald text-sm font-bold uppercase tracking-wider text-[#080E1A] shadow-lg shadow-gold/20 hover:bg-amber-400 transition">
+              Next Step →
+            </button>
+
+            <button type="submit" id="finalSubmitBtn" class="hidden rounded-xl bg-gradient-to-r from-gold to-amber-400 px-7 py-3 font-oswald text-sm font-bold uppercase tracking-wider text-[#080E1A] shadow-lg shadow-gold/30 hover:brightness-110 transition">
+              Transmit Admission Dossier ✓
+            </button>
+          </div>
+        </div>
+      </form>
+
+      <!-- Success Dossier Screen -->
+      <div id="successScreen" class="hidden py-10 text-center">
+        <div class="mx-auto mb-5 flex h-20 w-20 items-center justify-center rounded-2xl bg-army/15 border border-army/40 text-army shadow-lg shadow-army/20">
+          <svg class="h-10 w-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+        </div>
+        <span class="inline-block rounded-full bg-army/15 px-3 py-1 text-[.68rem] font-bold uppercase tracking-widest text-army mb-2">Transmitted Successfully</span>
+        <h2 class="text-3xl font-bold uppercase text-white">Welcome to Trishakti, <span id="doneName" class="text-gold">Cadet</span>!</h2>
+        <p class="mt-3 text-sm text-muted max-w-md mx-auto leading-relaxed">
+          Your admission dossier has been delivered directly to our command desk at <strong class="text-white">Bhim, Rajsamand</strong>. We will contact you shortly to confirm your batch slot.
+        </p>
+        <div class="mt-7 flex flex-wrap justify-center gap-3">
+          <a href="index.html" class="rounded-xl border border-line bg-canvas px-5 py-3 text-xs font-bold uppercase tracking-wider text-white hover:border-gold transition">Back to Academy Home</a>
+          <a href="https://wa.me/917339762820" target="_blank" rel="noopener" class="rounded-xl bg-[#25D366] px-5 py-3 text-xs font-bold uppercase tracking-wider text-[#06301A] hover:brightness-110 transition">Connect on WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="border-t border-line bg-[#060A12] py-5 text-center text-[.7rem] text-muted">
+    Trishakti Defence Academy · Behind PRSC Stadium, Bhim, Rajsamand (Rajasthan)
+  </footer>
+
+  <!-- Notification Toast -->
+  <div id="toast" class="rounded-xl border border-red-500/40 bg-surface px-4 py-3 text-xs font-semibold text-white shadow-2xl flex items-center gap-2.5">
+    <span class="h-2.5 w-2.5 rounded-full bg-red-500"></span>
+    <span id="toastMsg">Please check required fields.</span>
+  </div>
+
+  <script>
+    (function () {
+      const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzjpOBDA_MSks6DsLTtiCe_t_jVxZSiGQIWWTzOivmfrKChXEqpZL2l-dZQK2H-zMN9KQ/exec';
+
+      const TRADES = {
+        'Army': ['Army GD', 'Army Technical', 'SKT (Clerk)', 'NA (Nursing)', 'WMP', 'Tradesman'],
+        'Navy': ['Navy SSR', 'Navy MR'],
+        'Air Force': ['Air Force X Group', 'Air Force Y Group']
+      };
+
+      const panes = Array.from(document.querySelectorAll('.step-pane'));
+      const tabs = Array.from(document.querySelectorAll('.step-tab'));
+      const progressBar = document.getElementById('progressBar');
+      const stepTitleDisplay = document.getElementById('stepTitleDisplay');
+      const stepCountDisplay = document.getElementById('stepCountDisplay');
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const quickSubmitBtn = document.getElementById('quickSubmitBtn');
+      const finalSubmitBtn = document.getElementById('finalSubmitBtn');
+
+      let currentStep = 0;
+
+      function showToast(msg) {
+        const t = document.getElementById('toast');
+        document.getElementById('toastMsg').textContent = msg;
+        t.classList.add('show');
+        setTimeout(() => t.classList.remove('show'), 3500);
+      }
+
+      // Digits-only cleaner for phones, PIN, Aadhaar, year
+      ['studentContact', 'guardianContact', 'whatsappNo', 'pinCode', 'aadhaar', 'passingYear'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.addEventListener('input', () => { el.value = el.value.replace(/\D/g, ''); });
+      });
+
+      // Copy student mobile to WhatsApp
+      document.getElementById('copyPhoneBtn').addEventListener('click', () => {
+        const own = document.getElementById('studentContact').value.trim();
+        if (!own) { showToast('Enter Student Mobile Number first.'); return; }
+        document.getElementById('whatsappNo').value = own;
+      });
+
+      // Render Trade pills whenever Wing changes
+      function renderTrades(wing) {
+        const container = document.getElementById('tradeContainer');
+        const list = TRADES[wing] || TRADES['Army'];
+        container.innerHTML = list.map((trade, idx) => `
+          <label>
+            <input type="radio" name="tradeGroup" value="${trade}" class="pill-input" ${idx === 0 ? 'checked' : ''} />
+            <div class="pill-card text-center text-xs font-bold uppercase tracking-wide">${trade}</div>
+          </label>
+        `).join('');
+      }
+      renderTrades('Army');
+      document.querySelectorAll('input[name="wing"]').forEach(radio => {
+        radio.addEventListener('change', (e) => renderTrades(e.target.value));
+      });
+
+      // Validate the 3 mandatory fields
+      function validateMandatory() {
+        const name = document.getElementById('fullName').value.trim();
+        const own = document.getElementById('studentContact').value.trim();
+        const guard = document.getElementById('guardianContact').value.trim();
+
+        if (name.length < 2) {
+          goToStep(0);
+          document.getElementById('fullName').focus();
+          showToast('Please enter Full Name of Student.');
+          return false;
+        }
+        if (!/^[6-9]\d{9}$/.test(own)) {
+          goToStep(0);
+          document.getElementById('studentContact').focus();
+          showToast('Please enter a valid 10-digit Student Mobile Number.');
+          return false;
+        }
+        if (!/^[6-9]\d{9}$/.test(guard)) {
+          goToStep(0);
+          document.getElementById('guardianContact').focus();
+          showToast('Please enter a valid 10-digit Guardian Contact Number.');
+          return false;
+        }
+        return true;
+      }
+
+      function goToStep(index) {
+        if (index > 0 && !validateMandatory()) return;
+        currentStep = Math.max(0, Math.min(panes.length - 1, index));
+
+        panes.forEach((pane, i) => pane.classList.toggle('active', i === currentStep));
+        tabs.forEach((tab, i) => {
+          if (i === currentStep) {
+            tab.className = 'step-tab text-left rounded-lg px-2 py-1 text-[.65rem] font-bold uppercase tracking-wider bg-gold/15 text-gold border border-gold/40 truncate';
+          } else if (i < currentStep) {
+            tab.className = 'step-tab text-left rounded-lg px-2 py-1 text-[.65rem] font-semibold uppercase tracking-wider bg-army/15 text-army border border-army/30 truncate';
+          } else {
+            tab.className = 'step-tab text-left rounded-lg px-2 py-1 text-[.65rem] font-semibold uppercase tracking-wider bg-canvas/50 text-muted border border-transparent truncate';
+          }
+        });
+
+        progressBar.style.width = ((currentStep + 1) / panes.length * 100) + '%';
+        stepTitleDisplay.innerHTML = panes[currentStep].dataset.title;
+        stepCountDisplay.textContent = `Step ${currentStep + 1} of ${panes.length}`;
+
+        prevBtn.classList.toggle('hidden', currentStep === 0);
+        nextBtn.classList.toggle('hidden', currentStep === panes.length - 1);
+        finalSubmitBtn.classList.toggle('hidden', currentStep !== panes.length - 1);
+        quickSubmitBtn.classList.toggle('hidden', currentStep === 0 || currentStep === panes.length - 1);
+      }
+
+      nextBtn.addEventListener('click', () => goToStep(currentStep + 1));
+      prevBtn.addEventListener('click', () => goToStep(currentStep - 1));
+      tabs.forEach(tab => tab.addEventListener('click', () => goToStep(Number(tab.dataset.goto))));
+
+      // Submit handler
+      document.getElementById('cadetForm').addEventListener('submit', async function (e) {
+        e.preventDefault();
+        if (!validateMandatory()) return;
+
+        if (!document.getElementById('declaration').checked) {
+          showToast('Please tick the declaration box before submitting.');
+          return;
+        }
+
+        finalSubmitBtn.disabled = true;
+        quickSubmitBtn.disabled = true;
+        finalSubmitBtn.textContent = 'Transmitting...';
+        quickSubmitBtn.textContent = 'Sending...';
+
+        const checkedDocs = Array.from(document.querySelectorAll('input[name="docs"]:checked')).map(cb => cb.value).join(', ');
+        const todayStr = new Date().toISOString().split('T')[0];
+
+        const payload = {
+          form_type: 'admission',
+          session: document.getElementById('session').value.trim() || '2026–27',
+          admission_date: todayStr,
+          full_name: document.getElementById('fullName').value.trim().toUpperCase(),
+          dob: document.getElementById('dob').value,
+          father_name: document.getElementById('fatherName').value.trim().toUpperCase(),
+          mother_name: document.getElementById('motherName').value.trim().toUpperCase(),
+          gender: document.querySelector('input[name="gender"]:checked')?.value || '',
+          category: document.querySelector('input[name="category"]:checked')?.value || '',
+          student_contact: document.getElementById('studentContact').value.trim(),
+          guardian_contact: document.getElementById('guardianContact').value.trim(),
+          whatsapp_no: document.getElementById('whatsappNo').value.trim() || document.getElementById('studentContact').value.trim(),
+          email: document.getElementById('email').value.trim(),
+          address: document.getElementById('address').value.trim(),
+          village_city: document.getElementById('villageCity').value.trim(),
+          district: document.getElementById('district').value.trim(),
+          state: document.getElementById('state').value.trim(),
+          pin_code: document.getElementById('pinCode').value.trim(),
+          aadhaar: document.getElementById('aadhaar').value.trim(),
+          other_id: document.getElementById('otherId').value.trim(),
+          documents: checkedDocs,
+          wing: document.querySelector('input[name="wing"]:checked')?.value || 'Army',
+          trade_group: document.querySelector('input[name="tradeGroup"]:checked')?.value || '',
+          batch_no: document.getElementById('batchNo').value.trim(),
+          prev_coaching: document.getElementById('prevCoaching').value.trim(),
+          prev_attempts: document.getElementById('prevAttempts').value.trim(),
+          qual_10th: document.getElementById('qual10th').value.trim(),
+          qual_12th: document.getElementById('qual12th').value.trim(),
+          passing_year: document.getElementById('passingYear').value.trim(),
+          stream: document.getElementById('stream').value.trim(),
+          board: document.getElementById('board').value.trim(),
+          edu_status: document.querySelector('input[name="eduStatus"]:checked')?.value || '',
+          height: document.getElementById('height').value.trim(),
+          weight: document.getElementById('weight').value.trim(),
+          medical_fitness: document.getElementById('medicalFitness').value.trim(),
+          remarks: document.getElementById('remarks').value.trim()
+        };
+
+        try {
+          await fetch(SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            body: JSON.stringify(payload)
+          });
+          document.getElementById('cadetForm').classList.add('hidden');
+          document.getElementById('stepperWrapper').classList.add('hidden');
+          document.getElementById('doneName').textContent = payload.full_name.split(' ')[0];
+          document.getElementById('successScreen').classList.remove('hidden');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        } catch (err) {
+          showToast('Network error. Please try again.');
+          finalSubmitBtn.disabled = false;
+          quickSubmitBtn.disabled = false;
+          finalSubmitBtn.textContent = 'Transmit Admission Dossier ✓';
+          quickSubmitBtn.textContent = 'Fast Submit Now';
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
